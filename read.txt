@@ -1,0 +1,76 @@
+一、github:
+1.登录github成功以后，点击右上角+号，点击new repository创建新的仓库
+2.repository name中输入supermall
+3.description输入a vuejs supermall(任意输)
+4.选择public公共，私有是要钱的
+5.没有必要选创建readme文件，这里23-supermall项目下本身有readme，到时候提交就会冲突
+6.不用Add .gitignore，项目里有了
+7.Choose a license 许可证，比较开放的一般选择MIT，不是很开放的可以选Apache License2.0(用你代码必须声明版权)
+
+如何把项目和仓库联系起来
+方式一:
+把仓库的地址拷贝，在项目的命令行中找到你想放入的文件夹(这里是vue_learn)
+输入命令 git clone https://github.com/dddyyy425/supermall.git
+注意这里的项目名和仓库的名字不能一样，否则就有重复冲突
+现在想把建的项目中的内容弄到clone进来的项目里，用拷贝
+直接在文件夹打开拷贝，拷贝除开.git(已经有了，并与仓库联系)和node_modules(被忽略的)的其他内容
+拷贝进去后，要把新加的文件及文件夹上传
+进入该项目路径，输入git add .，再输入git commit -m '初始化项目'
+以上是提交到本地，要提交到服务器再输入 git push
+
+方式二:
+如果不想拷贝，想直接把原来建的项目中的.git与远程仓库联系起来怎么做呢
+进到项目之后，输入 git remote add origin https://github.com/dddyyy425/supermall.git
+之后再输入 git push -u origin master
+
+github新版本上线之后，原默认分支为master,现在统一改为了main
+那如何将master设为默认分支呢?
+1.右上角点击头像旁的小三角选择settings
+2.点击切换到Repository，将原有的main替换为master，点击update即可
+上面只对之后的新建项目有效，之前的旧项目默认分支改不了了
+
+二、划分目录结构
+拿到新项目时，一般会划分项目结构，把主要用到的目录创建出来(主要指src下的目录划分)
+components一般放公共的组件，里面又分为common和content
+common放不仅仅是当前项目用到的组件，可能会把这个common文件夹放到下一个项目里(比如tabbar在其他项目也能用)
+把当前项目相关的跟业务有关的组件写在content(只针对当前项目是公共的)
+store:状态管理，很多组件需要用到的公共的状态(参数)
+src下的common是公共的js文件
+
+三、两个css文件的引入
+normalize.css在github上有，是一个很多公司都在用的css文件，主要是初始化一些公共的样式
+除了引用第三方的css，还会建一个自己的base.css，创建项目一般会把这两个基本的css搞定，
+之后只会针对某个组件、某个标签去写内部的样式就可以了
+
+四、改别名怎么改(类似@/...)
+项目根目录下创建vue.config.js
+
+五、创建.editorconfig文件
+文件是项目的一些编辑规则，比如缩进几格。这里直接把之前创建的脚手架2的项目里的该文件复制过来
+
+六、tabbar的引入
+找到19-tabbar，把src下的tabbar文件复制到components/common，因为tabbar在其他项目也能用，
+所以复制到common，然后在content下新建mainTabbar文件，把19-tabbar的src下的MainTabBar复制进去
+因为mainTabbar.vue跟业务有关了，只能在该项目使用，所以归到components/content下。
+接着在App.vue中引入、注册和使用MainTabBar
+
+七、vue-router
+先下载vue-router:npm install vue-router --save
+
+八、改路径问题
+本来新建了vue.config.js用来配置路径的别名，类似'assets': '@/assets'
+但是将所有的路径改完以后总是报错找不到组件MainTabBar的依赖(检查了没有问题)
+然后我又把所有的路径改成@/...这种，不用类似'assets': '@/assets'，就可以了，很奇怪为啥这样
+只好不用别名了
+
+九、创建导航栏
+创建NavBar组件，在components/common/navbar里，分为left，center和right三个插槽
+
+十、请求首页的数据
+用到了axios，先下载工具包:npm install axios --save
+
+十一、轮播图，把第九天的课堂代码中src/components/common/swiper复制到该项目的同一位置
+视频没有带着封装轮播图了，是一个可以应用在其他项目的独立组件
+
+
+
